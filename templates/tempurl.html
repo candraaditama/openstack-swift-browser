@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load i18n %}
+{% load dateconv %}
+{% load lastpart %}
+{% block content %}
+
+<div class="container">
+{% include "messages.html" %}
+
+        <ul class="breadcrumb">
+            <li><a href="{% url "containerview" %}">Folder</a></li> 
+            <li><span class="divider">&nbsp;/</span>
+                <a class="u" href="{% url "objectview" container=container %}">{{container}}</a></li>
+
+            {% for prefix in prefixes %}
+                <li>
+                    <span class="divider">/</span>
+                    <a href="{% url "objectview" container=container prefix=prefix.full_name %}">{{prefix.display_name}}</a>
+                </li>
+            {% endfor %}
+       </ul> 
+
+    <fieldset>
+    <legend>{% trans 'URL sementara untuk berkas' %} {{container}}/{{objectname}}</legend>
+    <p>{% trans 'Gunakan URL berikut untuk berbagi berkas. URL berlaku selama 7 hari.' %}</p>
+    <p><code>{{url}}</code></p>
+    <p>{% trans 'Perlu diketahui bahwa URL belum dapat dihapus dan akan valid selama 7 hari!' %}</p>
+
+
+            {% if prefix %}
+        <a href="{% url "objectview" container=container prefix=prefix %}" class="btn" >
+    {% else %}
+        <a href="{% url "objectview" container=container %}" class="btn btn-primary" >
+    {% endif %}
+    {% trans 'Kembali' %}</a>
+  </fieldset>
+</div>
+
+{% endblock %}
+
+
+

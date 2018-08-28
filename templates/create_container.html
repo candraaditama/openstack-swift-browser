@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load i18n %}
+{% load dateconv %}
+{% load lastpart %}
+{% block content %}
+
+<div class="container">
+{% include "messages.html" %}
+
+        <ul class="breadcrumb">
+            <li><a href="{% url "containerview" %}">Folder</a></li> 
+       </ul> 
+
+<form method="POST" action="{% url "create_container" %}" class="form-horizontal">
+    <fieldset>
+    <legend>{% trans 'Buat Folder Baru' %}</legend>
+    {% csrf_token %}
+  
+    <div class="form-group">
+        <label  for="foldername">{% trans "Nama Folder" %}</label>
+        <div class="controls">
+            <input id="containername" name="containername" class="form-control" type="text" placeholder="{% trans "Nama folder" %}">
+            <span class="form-text text-muted">
+                {% trans "Masukkan nama folder disini." %}
+                {% trans "Nama folder hanya dapat diubah oleh admin." %}
+            </span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">{% trans 'Buat' %}</button>
+        <a href="{% url "containerview" %}" class="btn btn-warning" >{% trans 'Batal' %}</a>
+         </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+
+{% endblock %}

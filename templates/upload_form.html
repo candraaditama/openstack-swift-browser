@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load l10n %}
+{% load i18n %}
+{% load dateconv %}
+{% load lastpart %}
+{% block content %}
+
+<div class="container">
+{% include "messages.html" %}
+
+        <ul class="breadcrumb">
+            <li><a href="{% url "containerview" %}">Folder</a></li> 
+            <li><span class="divider">&nbsp;/</span>
+                <a class="u" href="{% url "objectview" container=container %}">{{container}}</a></li>
+
+            {% for prefix in prefixes %}
+                <li>
+                    <span class="divider">/</span>
+                    <a href="{% url "objectview" container=container prefix=prefix.full_name %}">{{prefix.display_name}}</a>
+                </li>
+            {% endfor %}
+       </ul> 
+
+
+<form action="{{ swift_url }}" method="POST" class="form-group" enctype="multipart/form-data">
+
+    <input type="hidden" name="redirect" value="{{ redirect_url }}" />
+    <input type="hidden" name="max_file_size" value="{{ max_file_size }}" />
+    <input type="hidden" name="max_file_count" value="{{ max_file_count }}" />
+    <input type="hidden" name="expires" value="{{ expires }}" />
+    <input type="hidden" name="signature" value="{{ signature }}" />
+    <input type="file" name="file1" id="file" style="display:none;" /><br />
+
+
+    <fieldset class="form-group">
+    <legend>{% trans 'Unggah berkas' %}</legend>
+  
+    <div class="form-group">
+        <label class="col-sm-2 col-form-label" for="foldername">{% trans "File" %}</label>
+        <div class="controls">
+            <div class="input-group-append">
+            <input id="filetmp" name="filetmp" class="form-control" type="text" placeholder="Pilih berkas">
+            <a class="btn btn-outline-secondary" onclick="$('input[id=file]').click();">{% trans 'Browse' %}</a>
+            </div>
+ 
+            <span class="help-block">
+                {% trans "Silahkan pilih berkas untuk diunggah" %}
+            </span>
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-primary">{% trans 'Mulai Unggah' %}</button>
+            {% if prefix %}
+        <a href="{% url "objectview" container=container prefix=prefix %}" class="btn" >
+    {% else %}
+        <a href="{% url "objectview" container=container %}" class="btn btn-warning" >
+    {% endif %}
+    {% trans 'Batal' %}</a>
+         </div>
+    </div>
+  </fieldset>
+</form>
+</div>
+
+
+
+
+
+
+    {% block jsadd %} <script type="text/javascript"> $('input[id=file]').change(function() { $('#filetmp').val($(this).val()); }); </script> {% endblock %}
+
+
+
+{% endblock %}
