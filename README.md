@@ -6,12 +6,12 @@ How to use :
 
 1. Install swiftbrowser:
 
-pip install django-swiftbrowser
+   pip install django-swiftbrowser
 
 2. Copy files to /usr/local/lib/python2.7/dist-packages/swiftbrowser
 
-You can copy all file or just "templates" folder and views.py
+   You can copy all file or just "templates" folder and views.py
 
 3. Run development server:
 
-django-admin runserver 0.0.0.0:8000 --settings=swiftbrowser.settings
+   django-admin runserver 0.0.0.0:8000 --settings=swiftbrowser.settings
