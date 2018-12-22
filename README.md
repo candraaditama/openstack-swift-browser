@@ -15,3 +15,6 @@ How to use :
 3. Run development server:
 
    django-admin runserver 0.0.0.0:8000 --settings=swiftbrowser.settings
+
+
+![Screenshot](2.PNG)
